@@ -1,7 +1,8 @@
 # Kodlama.io.Devs
 Adayların kodlama becerilerini iş verenlerle buluşturduğu bir proje.
 - Bu projeye kodlama.io java kampının 4. haftası ile başlanılmıştır.
-- Her hafta code refactoring yapılarak devam edilecektir.
+- Her hafta kampta belirlenen yeni gereksinimlere göre code refactoring yapılarak devam edilecektir.
+## 
 
 :white_check_mark: **Kampın 4. Haftası:**
 
