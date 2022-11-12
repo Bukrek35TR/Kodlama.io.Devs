@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,7 +31,8 @@ public class Language {
 	@Column(name = "languageName")
 	private String languageName;
 	
-	@OneToMany (mappedBy = "language" , cascade = CascadeType.ALL)
+	@OneToMany (cascade = CascadeType.ALL)
+	@JoinColumn (name = "language_id", referencedColumnName = "id")
 	private List<Technology> technology;
 
 }

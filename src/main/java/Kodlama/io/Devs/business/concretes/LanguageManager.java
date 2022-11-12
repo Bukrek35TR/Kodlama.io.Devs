@@ -90,7 +90,7 @@ public class LanguageManager implements LanguageServices {
 
 		List<Language> languages = languageRepository.findAll();
 
-		if (updateLanguageRequest.getLanguageName().equals("") || updateLanguageRequest.getId() == 0) {
+		if (updateLanguageRequest.getLanguageName().equals("") || updateLanguageRequest.getId() <= 0) {
 			throw new Exception("Programlama id ve/veya dili boş olamaz");
 		}
 
