@@ -3,13 +3,17 @@ package Kodlama.io.Devs.webApi.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import Kodlama.io.Devs.business.abstracts.LanguageServices;
 import Kodlama.io.Devs.business.requests.language.CreateLanguageRequest;
+import Kodlama.io.Devs.business.requests.language.DeleteLanguageRequest;
+import Kodlama.io.Devs.business.requests.language.UpdateLanguageRequest;
 import Kodlama.io.Devs.business.responses.language.GetAllLanguageResponses;
 import Kodlama.io.Devs.business.responses.language.GetByIdLanguageResponses;
 
@@ -42,16 +46,16 @@ public class LanguageController {
 		
 	}
 	
-//	@PutMapping("/update")
-//	public void update(Language language) throws Exception{
-//		languageServices.update(language);
-//		
-//	}
-//	
-//	@DeleteMapping("/delete")
-//	public void delete(Language language) throws Exception{
-//		languageServices.delete(language);
-//		
-//	}
+	@PutMapping("/update")
+	public void update(UpdateLanguageRequest updateLanguageRequest ) throws Exception{
+		languageServices.update(updateLanguageRequest);
+		
+	}
+	
+	@DeleteMapping("/delete")
+	public void delete(DeleteLanguageRequest deleteLanguageRequest ) throws Exception{
+		languageServices.delete(deleteLanguageRequest);
+		
+	}
 
 }

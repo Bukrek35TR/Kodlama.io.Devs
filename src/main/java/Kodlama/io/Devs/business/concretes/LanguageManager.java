@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import Kodlama.io.Devs.business.abstracts.LanguageServices;
 import Kodlama.io.Devs.business.requests.language.CreateLanguageRequest;
+import Kodlama.io.Devs.business.requests.language.DeleteLanguageRequest;
+import Kodlama.io.Devs.business.requests.language.UpdateLanguageRequest;
 import Kodlama.io.Devs.business.responses.language.GetAllLanguageResponses;
 import Kodlama.io.Devs.business.responses.language.GetByIdLanguageResponses;
 import Kodlama.io.Devs.dataAccess.abstracts.LanguageRepository;
@@ -59,33 +61,64 @@ public class LanguageManager implements LanguageServices {
 	public void add(CreateLanguageRequest createLanguageRequest) throws Exception {
 
 		Language language = new Language();
-		
+
 		List<Language> languages = languageRepository.findAll();
-		
-		for (Language language2 : languages) {
-			
-			if(language2.getLanguageName().equalsIgnoreCase(createLanguageRequest.getLanguageName())) {
-				throw new Exception("Girdiğiniz programlama dili mevcut");
+
+		if (createLanguageRequest.getLanguageName().equals("")) {
+			throw new Exception("Programlama id ve/veya dili boş olamaz");
+		}
+
+		for (Language languageF : languages) {
+
+			if (languageF.getLanguageName().equalsIgnoreCase(createLanguageRequest.getLanguageName())) {
+				throw new Exception("Girdiğiniz programlama dili database'de mevcut");
 			}
 
 		}
-		
-		language.setLanguageName(createLanguageRequest.getLanguageName());
 
+		language.setLanguageName(createLanguageRequest.getLanguageName());
 		languageRepository.save(language);
+
 	}
 
-//	@Override
-//	public void update(UpdateLanguageRequest updateLanguageRequest) throws Exception {
-//		languageRepository.sa;
-//
-//	}
-//
-//	@Override
-//	public void delete(CreateLanguageRequest createLanguageRequest) throws Exception {
-//		languageRepository.deleteById(createLanguageRequest.get);
-//
-//	}
+	@Override
+	public void update(UpdateLanguageRequest updateLanguageRequest) throws Exception {
+
+		boolean isCheck = true;
+
+		Language language = new Language();
+
+		List<Language> languages = languageRepository.findAll();
+
+		if (updateLanguageRequest.getLanguageName().equals("") || updateLanguageRequest.getId() == 0) {
+			throw new Exception("Programlama id ve/veya dili boş olamaz");
+		}
+
+		for (Language languageF : languages) {
+
+			if (languageF.getLanguageName().equalsIgnoreCase(updateLanguageRequest.getLanguageName())) {
+				throw new Exception("Girdiğiniz programlama dili database'de mevcut");
+			}
+
+			if (languageF.getId() == updateLanguageRequest.getId()) {
+				isCheck = false;
+			}
+		}
+
+		if (isCheck) {
+			throw new Exception("Girdiğiniz ID numarası database'de yok");
+		}
+
+		language.setId(updateLanguageRequest.getId());
+		language.setLanguageName(updateLanguageRequest.getLanguageName());
+		languageRepository.save(language);
+
+	}
+
+	@Override
+	public void delete(DeleteLanguageRequest deleteLanguageRequest) throws Exception {
+		languageRepository.deleteById(deleteLanguageRequest.getId());
+
+	}
 
 }
-
