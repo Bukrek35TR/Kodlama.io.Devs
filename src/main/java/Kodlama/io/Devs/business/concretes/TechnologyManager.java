@@ -32,19 +32,20 @@ public class TechnologyManager implements TechnologyServices {
 	@Override
 	public List<GetAllTechnologyResponses> getAll() {
 
-		List<Technology> technologies = technologyRepository.findAll();
+		List<Language> languages = languageRepository.findAll();
 		List<GetAllTechnologyResponses> getAllTechnologyResponses = new ArrayList<GetAllTechnologyResponses>();
 
-		for (Technology technology : technologies) {
+		for (Language language : languages) {
 
 			GetAllTechnologyResponses technologyResponseItem = new GetAllTechnologyResponses();
-			Language language = languageRepository.getReferenceById(technology.getLanguage().getId());
 
-			technologyResponseItem.setId(technology.getId());
-			technologyResponseItem.setTechnologyName(technology.getTechnologyName());
-			technologyResponseItem.setLanguageId(language.getId());
+			if(!(language.getTechnology().isEmpty())) {
+			technologyResponseItem.setId(language.getId());
 			technologyResponseItem.setLanguageName(language.getLanguageName());
+			technologyResponseItem.setTechnologies(language.getTechnology());
+
 			getAllTechnologyResponses.add(technologyResponseItem);
+			}
 		}
 		return getAllTechnologyResponses;
 	}
